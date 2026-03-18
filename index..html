@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Luxury Switcher | TH8 CODER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike Logo">
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">Kids</a></li>
+        </ul>
+
+        <div class="nav-icons">
+            <button class="icon-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="icon-btn" title="Cart">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">2</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <main class="showcase-container">
+            
+            <div class="showcase-left">
+                <h1 class="big-title">JUST<br>DO<br>IT</h1>
+            </div>
+
+            <div class="showcase-center">
+                <div class="shoe-stage">
+                    <h1 class="bg-text-overlay">NIKE</h1>
+                    <img src="kasut5.png" alt="Featured Nike Shoe" class="main-shoe" id="current-main-shoe">
+                </div>
+            </div>
+
+            <div class="showcase-right">
+                <div class="product-info">
+                    <h2 class="shoe-name" id="shoe-display-name">NIKE AIR FORCE</h2>
+                    <p class="premium-tag">PREMIUM SELECTION</p>
+                </div>
+            </div>
+
+        </main>
+
+        <section class="slider-section">
+            <div class="arrow-btn prev" onclick="changeShoeStep(-1)">&lt;</div>
+            
+            <div class="cards-container" id="slider">
+                <div class="boot-card active" onclick="setShoe(0)">
+                    <img src="kasut5.png" alt="Air Force Thumbnail">
+                    <h3>Air Force</h3>
+                </div>
+                <div class="boot-card" onclick="setShoe(1)">
+                    <img src="kasut4.webp" alt="Air Monarch Thumbnail">
+                    <h3>Air Monarch</h3>
+                </div>
+                <div class="boot-card" onclick="setShoe(2)">
+                    <img src="kasut2.png" alt="Air Max 720 Thumbnail">
+                    <h3>Air Max 720</h3>
+                </div>
+            </div>
+
+            <div class="arrow-btn next" onclick="changeShoeStep(1)">&gt;</div>
+        </section>
+
+    </div>
+
+    <script>
+        const shoeData = [
+            { name: "NIKE AIR FORCE", img: "kasut5.png" },
+            { name: "NIKE AIR MONARCH", img: "kasut4.webp" },
+            { name: "NIKE AIR MAX 720", img: "kasut2.png" }
+        ];
+
+        let currentIndex = 0;
+        let isAnimating = false;
+        const mainImg = document.getElementById('current-main-shoe');
+        const nameDisplay = document.getElementById('shoe-display-name');
+        const cards = document.querySelectorAll('.boot-card');
+
+        function updateDisplay(index, direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            // 1. Slide Out Animation
+            const moveOut = direction === 1 ? '-150%' : '150%';
+            mainImg.style.transition = 'all 0.6s cubic-bezier(0.55, 0, 1, 0.45)';
+            mainImg.style.transform = `translateY(${moveOut}) rotate(-35deg)`;
+            mainImg.style.opacity = '0';
+
+            setTimeout(() => {
+                // 2. Data Swap
+                currentIndex = index;
+                mainImg.src = shoeData[currentIndex].img;
+                nameDisplay.innerText = shoeData[currentIndex].name;
+
+                // Position for Slide In
+                const moveIn = direction === 1 ? '150%' : '-150%';
+                mainImg.style.transition = 'none';
+                mainImg.style.transform = `translateY(${moveIn}) rotate(-35deg)`;
+                
+                // 3. Slide In Animation
+                setTimeout(() => {
+                    mainImg.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+                    mainImg.style.transform = 'translateY(0) rotate(-25deg)';
+                    mainImg.style.opacity = '1';
+                    
+                    setTimeout(() => isAnimating = false, 1000);
+                }, 50);
+
+                // Update Active State on Cards
+                cards.forEach((c, i) => {
+                    c.classList.toggle('active', i === currentIndex);
+                });
+            }, 600);
+        }
+
+        function changeShoeStep(step) {
+            if (isAnimating) return;
+            let newIndex = (currentIndex + step + shoeData.length) % shoeData.length;
+            updateDisplay(newIndex, step);
+        }
+
+        function setShoe(index) {
+            if (index === currentIndex || isAnimating) return;
+            const direction = index > currentIndex ? 1 : -1;
+            updateDisplay(index, direction);
+        }
+    </script>
+</body>
+</html>

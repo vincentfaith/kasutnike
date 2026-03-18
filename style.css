@@ -1,0 +1,194 @@
+/* --- GLOBAL RESET --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Oswald', sans-serif;
+    color: #000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* --- NAVIGATION (Sticky) --- */
+.navbar {
+    width: 100%;
+    max-width: 1600px; /* Lebarkan sedikit untuk layout sejajar */
+    margin: 0 auto;
+    padding: 25px 60px; /* Tambah padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: rgba(245, 245, 245, 0.95);
+    backdrop-filter: blur(15px);
+    z-index: 2000;
+}
+
+.navbar .logo img { width: 70px; }
+
+.nav-links { display: flex; list-style: none; gap: 50px; }
+.nav-links a { text-decoration: none; color: #000; text-transform: uppercase; font-size: 15px; letter-spacing: 2px; }
+.nav-links a:hover { color: #888; }
+
+.nav-icons { display: flex; gap: 25px; align-items: center; }
+.icon-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: black; position: relative; transition: 0.3s; }
+.icon-btn:hover { transform: scale(1.15); }
+
+.cart-count { position: absolute; top: -8px; right: -10px; background: #000; color: #fff; font-size: 10px; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* --- LAYOUT CONTAINER --- */
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 1600px; /* Sama seperti Navbar */
+    margin: 0 auto;
+    width: 100%;
+    padding: 20px 60px 50px 60px; /* Padding sisi dilaraskan */
+}
+
+/* --- SHOWCASE AREA (FLEX LAYOUT - INI YANG ANDA NAK) --- */
+.showcase-container {
+    flex: 1; /* Ambil ruang tengah */
+    display: flex;
+    align-items: center; /* Sejajar secara menegak */
+    justify-content: space-between; /* Jarakkan kiri, tengah, kanan */
+    width: 100%;
+    min-height: 60vh; /* Ketinggian minimum kawasan kasut */
+    margin-top: 30px;
+}
+
+/* Kolum Kiri (Title) */
+.showcase-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Kolum Tengah (Kasut) */
+.showcase-center {
+    flex: 2; /* Bagi ruang lebih untuk kasut */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Kolum Kanan (Info) */
+.showcase-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- BIG TITLE (Kini responsif dalam Flex) --- */
+.big-title {
+    font-size: clamp(60px, 9vw, 120px); /* Dikecilkan sikit untuk muat sejajar */
+    font-weight: 900;
+    line-height: 0.85;
+    color: #000;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+/* --- PRODUCT INFO (Kini responsif dalam Flex) --- */
+.product-info { text-align: right; }
+.shoe-name { font-size: clamp(24px, 3.5vw, 36px); font-weight: 900; }
+.premium-tag { color: #888; font-size: 12px; letter-spacing: 4px; }
+
+/* --- SHOE VIEWER STAGE (Tetap sama) --- */
+.shoe-stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-text-overlay {
+    position: absolute;
+    font-size: clamp(150px, 25vw, 400px);
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.03);
+    z-index: 1;
+    letter-spacing: -15px;
+    user-select: none;
+}
+
+.main-shoe {
+    width: 100%;
+    max-width: 650px; /* Kekalkan saiz kasut */
+    z-index: 2;
+    transform: rotate(-25deg);
+    filter: drop-shadow(0 40px 60px rgba(0,0,0,0.15));
+}
+
+/* --- SLIDER SECTION (Kekal di bawah) --- */
+.slider-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 0;
+    border-top: 1px solid #eee;
+}
+
+.cards-container { display: flex; gap: 20px; padding: 10px; }
+
+.boot-card {
+    width: 170px;
+    height: 110px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #eee;
+    opacity: 0.8;
+}
+
+.boot-card.active, .boot-card:hover {
+    background: #f5f5f5;
+    color: #000;
+    opacity: 1;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-color: #fff;
+}
+
+.boot-card img { width: 75px; transition: 0.4s; }
+.boot-card:hover img { transform: rotate(-10deg) scale(1.1); }
+.boot-card h3 { font-size: 12px; margin-top: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; }
+
+.arrow-btn { font-size: 35px; font-weight: 200; cursor: pointer; color: #000; transition: 0.3s; }
+.arrow-btn:hover { color: #888; transform: scale(1.2); }
+
+/* --- RESPONSIVE DESIGN (MEDIA QUERIES) --- */
+
+/* Tablet (Tukar balik kepada susunan menegak) */
+@media (max-width: 1024px) {
+    .showcase-container { flex-direction: column; min-height: auto; gap: 40px; }
+    .showcase-left, .showcase-center, .showcase-right { flex: none; width: 100%; justify-content: center; }
+    .big-title { text-align: center; }
+    .product-info { text-align: center; }
+    .main-shoe { max-width: 500px; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .navbar { padding: 15px 30px; }
+    .nav-links { display: none; }
+    .container { padding: 10px 30px 40px 30px; }
+    .big-title { font-size: 60px; }
+    .main-shoe { max-width: 350px; }
+    .cards-container { overflow-x: auto; max-width: 300px; justify-content: flex-start; scrollbar-width: none; }
+    .cards-container::-webkit-scrollbar { display: none; }
+    .boot-card { min-width: 140px; }
+    .slider-section { gap: 15px; }
+}
